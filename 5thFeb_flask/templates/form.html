@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Average Marks Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .calculate {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      width: 300px;
+      text-align: center;
+    }
+    .calculate h1 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .calculate input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .calculate button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .calculate button:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculate">
+    <h1>Calculate average marks</h1>
+
+    <!-- Form sending data to Flask backend -->
+    <form action="{{ url_for('form') }}" method="post">
+      <input type="text" name="maths" placeholder="Maths" required="required" />
+      <input type="text" name="science" placeholder="Science" required="required" />
+      <input type="text" name="history" placeholder="History" required="required" />
+      <button type="submit" class="btn btn-primary btn-block btn-large">Calculate Button</button>
+    </form>
+
+    <div class="result">
+      The average marks is {{ average }}
+    </div>
+  </div>
+</body>
+</html>
