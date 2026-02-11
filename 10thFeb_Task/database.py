@@ -6,9 +6,9 @@ DATABASE_URL = (
     "mssql+pyodbc://@localhost/EmployeeDB"
     "?driver=ODBC+Driver+17+for+SQL+Server"
     "&trusted_connection=yes"
-)  #address of bd url ->fastapi will understand which db,which driver used
+)  #address of db url ->fastapi will understand which db,which driver used
 
-engine = create_engine(DATABASE_URL, echo=True)#engine ->bridge between backend aur database
+engine = create_engine(DATABASE_URL, echo=False)#engine -> bridge between backend aur database
 SessionLocal = sessionmaker(bind=engine)
 #for every api there is a create new session
 

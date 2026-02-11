@@ -19,7 +19,7 @@ class EmployeeUpdate(EmployeeBase):
 class EmployeeResponse(EmployeeBase):
     id: int
     is_active: bool
-
+#in response ID and status
     class Config:
         orm_mode = True #SQLAlchemy object ko JSON me convert karne ke liye
 

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 import models, schemas, crud
 
-models.Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=engine)#automatically create table
 
 app = FastAPI(title="Employee Management API")
 
