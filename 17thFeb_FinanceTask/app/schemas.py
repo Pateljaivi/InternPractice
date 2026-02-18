@@ -49,15 +49,17 @@ class CategoryCreate(BaseModel):
     type: str
     description: Optional[str] = None
 
-    @field_validator("name")
-    def lower_name(cls, v):
-        return v.strip().lower()
-
-    @field_validator("type")
-    def validate_type(cls, v):
-        if v not in ["income", "expense", "both"]:
-            raise ValueError("Invalid category type")
-        return v
+    # @field_validator("name")
+    # def lower_name(cls, v):
+    #     return v.strip().lower()
+    #
+    # @field_validator("type")
+    # def validate_type(cls, v):
+    #     if v not in ["income", "expense", "both"]:
+    #         raise ValueError("Invalid category type")
+    #     return v
 
 class CategoryUpdate(BaseModel):
     name: Optional[str] = None
+    type: Optional[str] = None
+    description: Optional[str] = None

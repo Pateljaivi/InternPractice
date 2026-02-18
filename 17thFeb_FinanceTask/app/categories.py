@@ -41,36 +41,36 @@ async def delete_category(name: str):
 
     return {"success": True}
 
-@router.put("/{old_name}")
-async def update_category(old_name: str, data: CategoryUpdate):
-    async with await client.start_session() as session:
-        async with session.start_transaction():
-
-            existing = await categories.find_one({"name": old_name})
-            if not existing:
-                raise HTTPException(status_code=404, detail="Category not found")
-
-            updated_data = data.model_dump(exclude_unset=True)
-
-            if not updated_data:
-                raise HTTPException(status_code=400, detail="No updated data provided")
-
-            await categories.update_one({"name": old_name}, {"$set": updated_data})
-
-            if "name" in updated_data:
-                await transactions.update_many(
-                    {"category": old_name},
-                    {"$set": {"category": updated_data["name"]}}
-                )
-
-            await audit_logs.insert_one({
-                "action": "update_category",
-                "old_name": old_name,
-                "new_name": updated_data.get("name"),
-                "timestamp": datetime.utcnow()
-            })
-
-    return {"success": True,"message": "Category updated successfully"}
+# @router.put("/{old_name}")
+# async def update_category(old_name: str, data: CategoryUpdate):
+#     async with await client.start_session() as session:
+#         async with session.start_transaction():
+#
+#             existing = await categories.find_one({"name": old_name})
+#             if not existing:
+#                 raise HTTPException(status_code=404, detail="Category not found")
+#
+#             updated_data = data.model_dump(exclude_unset=True)
+#
+#             if not updated_data:
+#                 raise HTTPException(status_code=400, detail="No updated data provided")
+#
+#             await categories.update_one({"name": old_name}, {"$set": updated_data})
+#
+#             if "name" in updated_data:
+#                 await transactions.update_many(
+#                     {"category": old_name},
+#                     {"$set": {"category": updated_data["name"]}}
+#                 )
+#
+#             await audit_logs.insert_one({
+#                 "action": "update_category",
+#                 "old_name": old_name,
+#                 "new_name": updated_data.get("name"),
+#                 "timestamp": datetime.utcnow()
+#             })
+#
+#     return {"success": True,"message": "Category updated successfully"}
 
 
 @router.patch("/{name}")
@@ -78,16 +78,26 @@ async def patch_category(name: str, data: CategoryUpdate):
     existing = await categories.find_one({"name": name})
     if not existing:
         raise HTTPException(status_code=404, detail="Category not found")
+    old_name = existing["name"]
     updated_data = data.model_dump(exclude_unset=True)
 
     if not updated_data:
         raise HTTPException(status_code=400, detail="No updated data provided")
     await categories.update_one({"name": name}, {"$set": updated_data})
 
-    if "name" in updated_data:
-        await transactions.update_many({
-            {"category": name},
-            {"$set": {"category": updated_data["name"]}}
-        })
 
-    return {"success": True, "message": "Category updated successfully"}
+    if "name" in updated_data:
+        await transactions.update_many(
+            {"category": old_name},
+            {"$set": {"category": updated_data["name"]}}
+        )
+    log_data = {
+        "action": "update_category",
+        "old_name": old_name,
+        "new_name": updated_data.get("name",old_name),
+        "timestamp": datetime.utcnow()
+    }
+    result = await audit_logs.insert_one(log_data)
+
+
+    return {"success": True, "message": "Category updated successfully","audit_id":str(result.inserted_id)}

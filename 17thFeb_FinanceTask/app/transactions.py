@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from datetime import datetime,timezone
-from app.database import transactions
+from app.database import transactions,audit_logs
 from app.schemas import TransactionCreate
 from app.dependencies import pagination
 from app.utils import serialize, validate_id
@@ -17,6 +17,12 @@ async def create_tx(data: TransactionCreate):
     result = await transactions.insert_one(tx)
     new_tx = await transactions.find_one({"_id": result.inserted_id})
 
+    await audit_logs.insert_one({
+        "action": "create_transaction",
+        "transaction_id": str(result.inserted_id),
+        "data" : tx,
+        "timestamp" : datetime.utcnow()
+    })
     return {"success": True, "data": serialize(new_tx)}
 
 
@@ -65,6 +71,11 @@ async def list_tx(
 @router.get("/search")
 async def search(q: str):
     cursor = transactions.find({"$text": {"$search": q}})
+    await audit_logs.insert_one({
+        "action": "search transactions",
+
+        "timestamp": datetime.utcnow(),
+    })
     return {"success": True, "data": [serialize(tx) async for tx in cursor]}
 
 
@@ -111,7 +122,11 @@ async def summary(month: str):
     if data.get("highest_expense"):
         for item in data["highest_expense"]:
             item["_id"] = str(item["_id"])
+    await audit_logs.insert_one({
+        "action": "generate summary",
 
+        "timestamp": datetime.utcnow(),
+    })
     return {"success": True, "data": data}
 
 
@@ -136,6 +151,12 @@ async def bulk_delete(
 
     result = await transactions.delete_many(query)
 
+    await audit_logs.insert_one({
+        "action": "bulk_delete_transaction",
+        "deleted_count": result.deleted_count,
+        "timestamp": datetime.utcnow(),
+    })
+
     return {"success": True, "deleted": result.deleted_count}
 
 
@@ -148,11 +169,15 @@ async def get_tx(tx_id: str):
 
     if not tx:
         raise HTTPException(status_code=404, detail="Transaction not found")
-
+    await audit_logs.insert_one({
+        "action": "get_transaction by id",
+        "transaction_id":tx_id,
+        "timestamp": datetime.utcnow(),
+    })
     return {"success": True, "data": serialize(tx)}
 
-@router.put("/{tx_id}")
-async def update_tx(tx_id: str,data: TransactionCreate):
+@router.patch("/{tx_id}")
+async def patch_tx(tx_id: str,data: TransactionCreate):
 
     obj_id = validate_id(tx_id)
 
@@ -160,13 +185,20 @@ async def update_tx(tx_id: str,data: TransactionCreate):
     if not existing:
         raise HTTPException(status_code=404, detail="Transaction not found")
 
-    update_data = data.model_dump()
+    update_data = data.model_dump(exclude_unset=True)
     update_data["updated_at"] = datetime.utcnow()
 
     await transactions.update_one({"_id": obj_id}, {"$set": update_data})
 
     updated = await transactions.find_one({"_id": obj_id})
 
+    await audit_logs.insert_one({
+        "action": "update_transaction by id",
+        "transaction_id":tx_id,
+        "old_data": existing,
+        "updated_fields":update_data,
+        "timestamp": datetime.utcnow(),
+    })
     return {"success": True, "data": serialize(updated)}
 
 @router.delete("/{tx_id}")
@@ -177,4 +209,11 @@ async def delete_tx(tx_id: str):
 
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Transaction not found")
+
+    await audit_logs.insert_one({
+        "action": "delete_transaction by id",
+        "transaction_id":tx_id,
+        "deleted_data":result,
+        "timestamp": datetime.utcnow(),
+    })
     return {"success": True,"message": "Transaction successfully deleted"}
