@@ -6,6 +6,7 @@ def get_all_employees(db: Session):
 
 def get_employee(db: Session, emp_id: int):
     employee = db.query(models.Employee).filter(models.Employee.id == emp_id).first()
+
     if not employee:
         exceptions.employee_not_found()
     return employee

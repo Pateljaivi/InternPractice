@@ -41,5 +41,6 @@ def calculate_sum():
     a_val = float(dict(data)['a'])
     b_val = float(dict(data)['b'])
     return jsonify(a_val + b_val)
+
 if __name__ == "__main__":
         app.run(debug=True)
