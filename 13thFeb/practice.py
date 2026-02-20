@@ -62,9 +62,9 @@ import requests
 from bs4 import BeautifulSoup
 
 
-# -----------------------------
+
 # 1. Fetch HTML
-# -----------------------------
+
 def fetch_html(url):
     headers = {
         "User-Agent": "Mozilla/5.0"
@@ -73,17 +73,17 @@ def fetch_html(url):
     return response.text
 
 
-# -----------------------------
+
 # 2. Extract Title
-# -----------------------------
+
 def extract_title(soup):
     title = soup.find("h1")
     return title.get_text(strip=True) if title else "No Title Found"
 
 
-# -----------------------------
+
 # 3. Extract Headings & Paragraphs
-# -----------------------------
+
 def extract_content(soup):
     content_data = []
 
@@ -95,9 +95,9 @@ def extract_content(soup):
     return content_data
 
 
-# -----------------------------
+
 # 4. Extract Code Blocks
-# -----------------------------
+
 def extract_code(soup):
     codes = []
     for code in soup.find_all("pre"):
@@ -105,9 +105,9 @@ def extract_code(soup):
     return codes
 
 
-# -----------------------------
+
 # MAIN FUNCTION
-# -----------------------------
+
 def main():
     url = "https://www.geeksforgeeks.org/web-scraping/introduction-to-web-scraping/"
 
