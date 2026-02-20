@@ -33,6 +33,7 @@ def update_tea(tea_id: int,updated_tea: Tea):
             return updated_tea
     return {"error":"tea not found"}
 
+
 @app.delete("/teas/{tea_id}")
 def delete_tea(tea_id: int):
     for index,tea in enumerate(teas):
