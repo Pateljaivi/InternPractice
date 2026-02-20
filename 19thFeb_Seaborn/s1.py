@@ -9,4 +9,5 @@ x_1 = pd.DataFrame({"var":var ,"var_1":var_1 })
 
 sns.lineplot(x="var", y="var_1", data=x_1)
 
+
 plt.show()
