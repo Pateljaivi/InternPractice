@@ -42,7 +42,7 @@ print("\nDuplicate Rows:",duplicates)
 
 
 #Outlier Detection
-print("\nShowing Boxplots for Outlier Detection...")
+print("\nShowing Box plots for Outlier Detection...")
 plt.figure(figsize=(14,6))
 
 for i,col in enumerate(df.columns[:-1],1): #exclude label column -> because it is target column
@@ -81,8 +81,6 @@ for col in cols_to_clean:
 
 print("Shape After Outlier Handling:",df.shape)
 
-
-
 #Feature and target split
 X = df.drop("label",axis=1)
 y = df["label"]
@@ -98,7 +96,7 @@ X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=
 dt = DecisionTreeClassifier(
     criterion="gini",#decision tree's impurity measure
     max_depth=8,#tree's deepness
-    min_samples_split=5,#to split node minimum 5 samples // default->2
+    min_samples_split=5,#to split node minimum 5 samples // default -> 2
     min_samples_leaf=3,#in leaf node minimum 3 sample // default -> 1
     random_state=42
 )
