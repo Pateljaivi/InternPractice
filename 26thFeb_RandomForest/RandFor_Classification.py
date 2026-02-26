@@ -128,12 +128,6 @@ class HeartFailurePrediction:
     def evaluate(self):
         print("Evaluating Model....")
 
-        # train_pred = self.pipeline.predict(self.X_train)
-        # test_pred = self.pipeline.predict(self.X_test)
-        #
-        # print("Train Accuracy:",accuracy_score(self.y_train,train_pred)*100)
-        # print("Test Accuracy:",accuracy_score(self.y_test,test_pred)*100)
-
         y_pred = self.pipeline.predict(self.X_test)
         train_probs = self.pipeline.predict_proba(self.X_train)[:,1]
         test_probs = self.pipeline.predict_proba(self.X_test)[:,1]
