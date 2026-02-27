@@ -1,4 +1,4 @@
-"""Heart Failure Prediction using Random Forest Classifier"""
+"""Heart Disease Prediction using Random Forest Classifier"""
 
 import pandas as pd
 import numpy as np
@@ -11,7 +11,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import  accuracy_score, roc_auc_score ,roc_curve
 
 
-class HeartFailurePrediction:
+class HeartDiseasePrediction:
     def __init__(self,file_path,test_size=0.2,random_state=42):
         self.file_path = file_path
         self.test_size = test_size
@@ -172,7 +172,7 @@ def main():
 
     DATA_PATH = "heart.csv"
 
-    model = HeartFailurePrediction(DATA_PATH)
+    model = HeartDiseasePrediction(DATA_PATH)
 
     model.load_data()
     model.clean_data()
