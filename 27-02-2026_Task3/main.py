@@ -128,7 +128,7 @@ class InsuranceCharges:
         print("==========Model Performance==========")
         print(f"Train R2 Score: {train_r2}")
         print(f"Test R2 Score: {r2}")
-        print(f"Mean Squared Error: {mse}")
+        print(f"Mean Squared Error: {mse} ")
         print(f"Root Mean Squared Error: {rmse}")
         print(f"Mean Absolute Error: {mae}")
         print("====================================\n")
