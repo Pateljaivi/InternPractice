@@ -1,4 +1,4 @@
- ***Intern Practice***
+ ***Internship Practice Repository***
 
 Tracking Daily Growth & Technical Implementation.
 - This repository serves as a comprehensive record of my daily practice, tasks, and hands-on development during my internship. Each directory represents a dedicated day of learning, featuring structured code, problem-solving exercises, and project modules.
