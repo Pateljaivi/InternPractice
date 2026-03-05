@@ -9,11 +9,11 @@ It contains daily development work, experiments, learning notes, and implementat
 
 The aim of maintaining this repository is to:
 
-• Practice coding consistently during the internship
-• Maintain a **daily development log**
-• Document challenges faced while building solutions
-• Track learning progress in a structured way
-• Build a **personal reference library for future projects**
+- Practice coding consistently during the internship
+- Maintain a **daily development log**
+- Document challenges faced while building solutions
+- Track learning progress in a structured way
+- Build a **personal reference library for future projects**
 
 ---
 
