@@ -138,7 +138,7 @@ class SVMtrainClassifier:
         plt.tight_layout()
         plt.show()
 
-    def plot_linear_boundary_pca(self):
+    def plot_boundary_pca(self):
         # Process data for PCA
         X_processed = self.best_model.named_steps['preprocessor'].transform(self.X_train)
 
@@ -186,7 +186,7 @@ def main():
     model.run_pipeline_gridsearch()
     model.evaluate_model()
     model.visualize_comparison()
-    model.plot_linear_boundary_pca()
+    model.plot_boundary_pca()
 
 if __name__ == "__main__":
     main()
