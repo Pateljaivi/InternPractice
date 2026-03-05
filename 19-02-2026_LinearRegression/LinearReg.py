@@ -29,6 +29,7 @@ class InsuranceChargesPrediction:
 
         self.scaler = None
         self.model = None
+        self.preprocessor = None
 
     def load_data(self):
         print("Loading dataset...")
