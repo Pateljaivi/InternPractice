@@ -24,7 +24,7 @@ df_dist = pd.DataFrame({"Scores": performance_scores})
 # 3. Setup the Visual Dashboard (2 Rows, 2 Columns)
 sns.set_theme(style="darkgrid")
 fig, axes = plt.subplots(2, 2, figsize=(15, 10))
-fig.suptitle('Seaborn Practice', fontsize=20)
+fig.suptitle('Seaborn 06-03-2026_Practice', fontsize=20)
 
 # Plot 1: Line Plot (Trends)
 sns.lineplot(ax=axes[0, 0], x="Day", y="Revenue", data=df_line, marker="o", color="blue")
