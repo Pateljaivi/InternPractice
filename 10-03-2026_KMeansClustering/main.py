@@ -15,13 +15,16 @@ from sklearn.preprocessing import StandardScaler,OneHotEncoder
 
 class PenguinsClustering:
     def __init__(self,file_path):
+
+        """Initializes the class with the dataset path"""
+
         self.file_path = file_path
         self.df = None
         self.pipeline = None
 
     def load_data(self):
 
-        """Loading dataset"""
+        """Loads the dataset from the specified file path into a pandas DataFrame"""
 
         try:
             print("Loading data...")
@@ -41,7 +44,6 @@ class PenguinsClustering:
 
             """Preprocessing dataset: Cleaning, Missing Values, and Outlier Removal"""
 
-
             self.load_data()
 
             print("\nStarting Preprocessing...")
@@ -59,7 +61,7 @@ class PenguinsClustering:
 
                 # Categorical -> the most frequent value
                 for col in cat_cols:
-                    if not self.df[col].mode().empty:
+                    if not self.df[col].mode().empty:#it checks if a mode actually exists
                         self.df[col] = self.df[col].fillna(self.df[col].mode()[0])
 
                 print("Outlier Detection...")
@@ -107,6 +109,8 @@ class PenguinsClustering:
 
     def basic_info(self):
 
+        """ Prints basic statistical information and structure of the cleaned dataset"""
+
         self.preprocess_data()
 
         try:
@@ -121,6 +125,8 @@ class PenguinsClustering:
             print(f"Error during basic info: {e}")
 
     def build_pipeline(self):
+
+        """Constructs a Pipeline for data transformation and clustering"""
 
         self.basic_info()
 
@@ -147,6 +153,8 @@ class PenguinsClustering:
 
     def train_model(self):
 
+        """ Fits the entire ML pipeline to the cleaned penguin dataset """
+
         self.build_pipeline()
 
         try:
@@ -158,6 +166,8 @@ class PenguinsClustering:
             print(f"Error during training model: {e}")
 
     def evaluate_model(self):
+
+        """ Calculates the Silhouette Score to measure how well-separated the clusters are """
 
         self.train_model()
 
@@ -175,6 +185,8 @@ class PenguinsClustering:
             print(f"Error during evaluating model: {e}")
 
     def elbow_method(self):
+
+        """ Executes the Elbow Method to verify the optimal number of clusters (k) """
 
         self.evaluate_model()
 
@@ -213,7 +225,7 @@ class PenguinsClustering:
 
     def visualize_clustering(self):
 
-
+        """Visualizes the 5-dimensional data in a 2D plane using PCA"""
 
         self.elbow_method()
 
