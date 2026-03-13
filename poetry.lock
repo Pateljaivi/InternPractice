@@ -1353,6 +1353,30 @@ traitlets = "*"
 test = ["flake8", "nbdime", "nbval", "notebook", "pytest"]
 
 [[package]]
+name = "mlxtend"
+version = "0.24.0"
+description = "Machine Learning Library Extensions"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "mlxtend-0.24.0-py3-none-any.whl", hash = "sha256:2cd15e94360f0c693c8c042a98698d18b03557ab47a7549524c2b354dd8e17d1"},
+    {file = "mlxtend-0.24.0.tar.gz", hash = "sha256:594f124539d84c3a86951715e16656abfc3005f5da7d3a56b53c77d28d5263f8"},
+]
+
+[package.dependencies]
+joblib = ">=1.5.2"
+matplotlib = ">=3.10.8"
+numpy = ">=2.3.5"
+pandas = ">=2.3.3"
+scikit-learn = ">=1.8.0"
+scipy = ">=1.16.3"
+
+[package.extras]
+docs = ["mkdocs", "mkdocs-bootswatch", "nbconvert", "python-markdown-math"]
+testing = ["pytest"]
+
+[[package]]
 name = "motor"
 version = "3.7.1"
 description = "Non-blocking MongoDB driver for Tornado or asyncio"
@@ -3069,4 +3093,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13"
-content-hash = "ac910583343800b9218078d191692e41b1469794686fb04dc29849ce7c8ec013"
+content-hash = "d8d680abc04ec1e380c44dbddf84eea46715db8afe979427810dca43dd033666"
