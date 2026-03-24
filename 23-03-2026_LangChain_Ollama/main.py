@@ -1,18 +1,22 @@
-from langchain_ollama import ChatOllama
-#ChatOllama -> specific connector
+import os
+from langchain_groq import ChatGroq  # Use ChatGroq instead of ChatOllama
 from langchain_core.messages import HumanMessage
-#HumanMessage ->  tool wraps your text into a format that the AI recognizes as a message coming from a human user
+from dotenv import load_dotenv
+
+load_dotenv()
+
+API_KEY = os.getenv("GROQ_API_KEY")
 
 # Initialize model
-llm = ChatOllama(
-    model="llama3.2:latest",  # or mistral, phi, etc. #AI Brain
-    temperature=0.7,#0.7 is a good balance for general conversation
-    base_url="http://ai:11434",
+llm = ChatGroq(
+    model="llama-3.3-70b-versatile", # One of Groq's most powerful models
+    temperature=0.7,
+    api_key=API_KEY # Paste your key here
 )
 
-# Chat
+# The logic stays exactly the same
 response = llm.invoke([
-    HumanMessage(content="Explain transformers in simple terms")
+    HumanMessage(content="Explain AI agents in simple terms")
 ])
 
 print(response.content)
