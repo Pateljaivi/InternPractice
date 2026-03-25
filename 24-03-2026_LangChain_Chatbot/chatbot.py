@@ -13,6 +13,8 @@ class ChatBot:
         load_dotenv()
 
         self.search_tool = TavilySearch(max_results=2)
+        #TavilySearch->These are classes already provided by LangChain
+        # This allows the chatbot to look up real-time info on the web
         self.tools = [self.search_tool]
 
 
@@ -41,8 +43,9 @@ class ChatBot:
 
             # Record the tool output in history
             self.history.append(ToolMessage(
-                content=str(result),
+                content=str(result),#The actual text found on the web
                 tool_call_id=tool_call["id"]
+                #a unique ID that links this specific answer to the specific question the AI asked
             ))
 
 
@@ -67,6 +70,7 @@ class ChatBot:
 
         # Store final answer and return text
         self.history.append(AIMessage(content=response.content))
+
         return response.content
 
 
