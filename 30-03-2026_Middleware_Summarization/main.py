@@ -12,3 +12,5 @@ if __name__ == "__main__":
 
         response = bot.run(user_id, text)
         print(f"AI: {response}")
+
+
