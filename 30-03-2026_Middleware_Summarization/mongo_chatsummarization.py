@@ -56,6 +56,7 @@ def get_old_context(query):
     return ""
 
 
+
 print("\n--- Chat started! (Type 'exit' to stop) ---")
 config = {"configurable": {"thread_id": "thread_primary"}}
 
