@@ -2397,6 +2397,25 @@ groq = ">=0.30.0,<1.0.0"
 langchain-core = ">=1.2.8,<2.0.0"
 
 [[package]]
+name = "langchain-mistralai"
+version = "1.1.2"
+description = "An integration package connecting Mistral and LangChain"
+optional = false
+python-versions = "<4.0.0,>=3.10.0"
+groups = ["main"]
+files = [
+    {file = "langchain_mistralai-1.1.2-py3-none-any.whl", hash = "sha256:2c55a7d1df6a090b61d3c3ca0a7894895c87557b8248e6fb1608d61ad9f149ee"},
+    {file = "langchain_mistralai-1.1.2.tar.gz", hash = "sha256:3c852b1b2d8a729299f25fba7d5c9cadb9e2128387c2771745e8e8cb412b33cd"},
+]
+
+[package.dependencies]
+httpx = ">=0.25.2,<1.0.0"
+httpx-sse = ">=0.3.1,<1.0.0"
+langchain-core = ">=1.2.19,<2.0.0"
+pydantic = ">=2.0.0,<3.0.0"
+tokenizers = ">=0.15.1,<1.0.0"
+
+[[package]]
 name = "langchain-mongodb"
 version = "0.11.0"
 description = "An integration package connecting MongoDB and LangChain"
@@ -7533,4 +7552,4 @@ cffi = ["cffi (>=1.17,<2.0) ; platform_python_implementation != \"PyPy\" and pyt
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13,<4.0"
-content-hash = "522a92216742337a5c48797ea06f7bb8df3f21ff61caa12b38b55f5f92c8c58b"
+content-hash = "8c2ee6a2bff10b1792c986ab4262d2c8d1f244a99fd66524fb42bbb56b54a2cf"
