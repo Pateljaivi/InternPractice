@@ -20,6 +20,7 @@ def data_store():
 
     files = [
         "data/company_policies.pdf",
+        "data/faq.pdf",
         "data/product_manual.pdf",
     ]
 
@@ -35,8 +36,8 @@ def data_store():
 
 
     text_split = RecursiveCharacterTextSplitter(
-        chunk_size=500,
-        chunk_overlap=100
+        chunk_size=1000,
+        chunk_overlap=200
     )
 
     chunk = text_split.split_documents(all_docs)
@@ -51,5 +52,8 @@ def data_store():
         embeddings,
         persist_directory="./chroma1_db"
     )
+    # print(f"Loaded {len(chunk)} chunks into Chroma")
 
     return vectors.as_retriever(search_kwargs={"k":3})
+
+
